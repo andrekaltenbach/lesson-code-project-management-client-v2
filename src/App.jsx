@@ -7,6 +7,8 @@ import ProjectDetailsPage from './pages/ProjectDetailsPage';
 import EditProjectPage from './pages/EditProjectPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import IsPrivat from './components/IsPrivat';
+import IsAnon from './components/IsAnon';
 
 function App() {
   return (
@@ -15,11 +17,46 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/projects" element={<ProjectListPage />} />
-        <Route path="/projects/:projectId" element={<ProjectDetailsPage />} />
-        <Route path="/projects/edit/:projectId" element={<EditProjectPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/projects"
+          element={
+            <IsPrivat>
+              <ProjectListPage />
+            </IsPrivat>
+          }
+        />
+        <Route
+          path="/projects/:projectId"
+          element={
+            <IsPrivat>
+              <ProjectDetailsPage />
+            </IsPrivat>
+          }
+        />
+        <Route
+          path="/projects/edit/:projectId"
+          element={
+            <IsPrivat>
+              <EditProjectPage />
+            </IsPrivat>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <IsAnon>
+              <SignupPage />
+            </IsAnon>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <IsAnon>
+              <LoginPage />
+            </IsAnon>
+          }
+        />
       </Routes>
     </div>
   );

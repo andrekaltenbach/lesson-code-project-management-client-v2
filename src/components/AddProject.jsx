@@ -1,29 +1,29 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
-const API_URL = "http://localhost:5005";
+const API_URL = 'http://localhost:5005';
 
 function AddProject(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const requestBody = { title, description };
-    
+
     axios
-      .post(`${API_URL}/api/projects`, requestBody)
+      .post(`${API_URL}/api/projects`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         // Reset the state
-        setTitle("");
-        setDescription("");
+        setTitle('');
+        setDescription('');
         props.refreshProjects();
       })
       .catch((error) => console.log(error));
   };
-
 
   return (
     <div className="AddProject">
@@ -31,12 +31,7 @@ function AddProject(props) {
 
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
 
         <label>Description:</label>
         <textarea
