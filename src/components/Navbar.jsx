@@ -5,7 +5,7 @@ import { useContext } from 'react'; // <== IMPORT
 import { AuthContext } from '../context/auth.context'; // <== IMPORT
 
 function Navbar() {
-  const { isLoggedIn, user } = useContext(AuthContext); // <== ADD
+  const { isLoggedIn, user, logOutUser } = useContext(AuthContext); // <== ADD
 
   return (
     <nav>
@@ -18,7 +18,8 @@ function Navbar() {
           <Link to="/projects">
             <button>Projects</button>
           </Link>
-          <button>Logout</button>
+          <button onClick={logOutUser}>Logout</button>
+          <span>{user && user.name}</span>
         </>
       )}
 
